@@ -5,16 +5,25 @@ import jakarta.persistence.*;
 import java.util.Objects;
 // Entity to create the table
 @Entity
+@Table(
+        name = "customer",
+        uniqueConstraints = {
+        @UniqueConstraint( name = "customer_email_key",  // <- needs to match constraint key name in DB
+                columnNames = "email"  // <= passing in the name of the column we want to make unique
+          )
+        }
+)
 public class Customer {
     // the id will generate automatically
     @Id
     @SequenceGenerator(
-            name = "customer_id_sequence",
-            sequenceName = "customer_id_sequence"
+            name = "customer_id_seq",   // <- needs to match flyway seq key name
+            sequenceName = "customer_id_seq",
+            allocationSize = 1  // <- change default alloc from [50] to [1]
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "customer_id_sequence"
+            generator = "customer_id_seq"
     )
     private Integer id;
     @Column(
