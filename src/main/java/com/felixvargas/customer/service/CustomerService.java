@@ -17,7 +17,7 @@ public class CustomerService {
     private final CustomerDAO customerDAO;  // field to hold a CustomerDAO object
 
     // Constructor that injects a CustomerDAO object using the @Qualifier annotation
-    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO) {
+    public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
 

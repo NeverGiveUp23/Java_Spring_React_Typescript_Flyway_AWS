@@ -3,6 +3,7 @@ package com.felixvargas.customer.controller;
 import com.felixvargas.customer.model.Customer;
 import com.felixvargas.customer.records.CustomerRegReq;
 import com.felixvargas.customer.records.CustomerUpdateRequest;
+import com.felixvargas.customer.service.CustomerJDBCDataAccessService;
 import com.felixvargas.customer.service.CustomerJPADataAccessService;
 import com.felixvargas.customer.service.CustomerService;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,20 @@ public class CustomerController {
 
     private final CustomerJPADataAccessService customerJPADataAccessService;  // Field to hold a CustomerJPADataAccessService object
     private final CustomerService customerService;  // Field to hold a CustomerService object
+    private final CustomerJDBCDataAccessService customerJDBCDataAccessService;
 
     // Constructor that injects a CustomerJPADataAccessService and CustomerService object
-    public CustomerController(CustomerJPADataAccessService customerJPADataAccessService, CustomerService customerService) {
+    public CustomerController(CustomerJPADataAccessService customerJPADataAccessService, CustomerService customerService, CustomerJDBCDataAccessService customerJDBCDataAccessService) {
         this.customerJPADataAccessService = customerJPADataAccessService;
         this.customerService = customerService;
+        this.customerJDBCDataAccessService = customerJDBCDataAccessService;
     }
 
     // Endpoint to retrieve all customers
     @GetMapping
     public List<Customer> getCustomers(){
-        return customerJPADataAccessService.selectAllCustomer();  // Calls the selectAllCustomer() method of the customerJPADataAccessService object
+        return customerJDBCDataAccessService.selectAllCustomer();  // Calls the selectAllCustomer() method of the
+        // customerJPADataAccessService object
     }
 
     // Endpoint to retrieve a customer by ID (returns Optional)

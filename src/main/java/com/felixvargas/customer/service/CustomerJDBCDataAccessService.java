@@ -1,5 +1,6 @@
 package com.felixvargas.customer.service;
 
+import com.felixvargas.customer.customerMapper.CustomerRowMapper;
 import com.felixvargas.customer.interfaces.CustomerDAO;
 import com.felixvargas.customer.model.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,14 +12,20 @@ import java.util.Optional;
 public class CustomerJDBCDataAccessService implements CustomerDAO {
 
     private final JdbcTemplate jdbcTemplate;
+    private final CustomerRowMapper customerRowMapper;
 
-    public CustomerJDBCDataAccessService(JdbcTemplate jdbcTemplate) {
+    public CustomerJDBCDataAccessService(JdbcTemplate jdbcTemplate, CustomerRowMapper customerRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.customerRowMapper = customerRowMapper;
     }
 
     @Override
     public List<Customer> selectAllCustomer() {
-        return null;
+        var sql = """
+                SELECT id, name, email, age
+                FROM customer
+                """;
+        return jdbcTemplate.query(sql, customerRowMapper);
     }
 
     @Override
@@ -28,7 +35,17 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
 
     @Override
     public void insertCustomer(Customer customer) {
+        var sql = """
+               INSERT INTO customer(name, email, age) VALUES (?, ?, ?)
+                """;
 
+         var result = jdbcTemplate.update(
+                sql,
+                customer.getName(),
+                customer.getEmail(),
+                customer.getAge()
+        );
+        System.out.println("jdbcTemplate.update = " + result);
     }
 
     @Override
