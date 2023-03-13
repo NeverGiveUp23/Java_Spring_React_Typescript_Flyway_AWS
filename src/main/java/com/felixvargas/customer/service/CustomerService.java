@@ -10,6 +10,9 @@ import com.felixvargas.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Service  // Spring annotation indicating that this class is a service
 public class CustomerService {
@@ -19,6 +22,14 @@ public class CustomerService {
     // Constructor that injects a CustomerDAO object using the @Qualifier annotation
     public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
+    }
+
+    public List<Customer> selectAllCustomers(){
+        return customerDAO.selectAllCustomer();
+    }
+
+    public Optional<Customer> selectCustomerById(Integer customerId){
+        return customerDAO.selectCustomerById(customerId);
     }
 
 

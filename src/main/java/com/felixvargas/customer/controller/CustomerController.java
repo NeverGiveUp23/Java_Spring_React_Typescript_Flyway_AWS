@@ -29,14 +29,14 @@ public class CustomerController {
     // Endpoint to retrieve all customers
     @GetMapping
     public List<Customer> getCustomers(){
-        return customerJDBCDataAccessService.selectAllCustomer();  // Calls the selectAllCustomer() method of the
+        return customerService.selectAllCustomers();  // Calls the selectAllCustomer() method of the
         // customerJPADataAccessService object
     }
 
     // Endpoint to retrieve a customer by ID (returns Optional)
     @GetMapping("{id}")
     public Optional<Customer> getCustomers(@PathVariable("id") Integer id){
-        return customerJDBCDataAccessService.selectCustomerById(id);  // Calls the selectCustomerById() method of the
+        return customerService.selectCustomerById(id);  // Calls the selectCustomerById() method of the
         // customerJPADataAccessService object
     }
 
@@ -51,7 +51,7 @@ public class CustomerController {
     // Endpoint to delete a customer by ID
     @DeleteMapping("{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Integer customerId){
-        customerJDBCDataAccessService.deleteCustomerById(customerId);  // Calls the deleteCustomerById() method of the customerService
+        customerService.deleteCustomerById(customerId);  // Calls the deleteCustomerById() method of the customerService
         // object
     }
 
