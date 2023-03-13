@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 @Component
 public class CustomerRowMapper implements RowMapper<Customer> {
 
-
+// Refactoring Row Mapper method from the service -> cleaner and organized code + easy for testing
     @Override
     public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
         return   new Customer(

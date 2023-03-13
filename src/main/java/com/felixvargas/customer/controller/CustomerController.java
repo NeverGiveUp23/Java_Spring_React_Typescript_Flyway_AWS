@@ -36,7 +36,8 @@ public class CustomerController {
     // Endpoint to retrieve a customer by ID (returns Optional)
     @GetMapping("{id}")
     public Optional<Customer> getCustomers(@PathVariable("id") Integer id){
-        return customerJPADataAccessService.selectCustomerById(id);  // Calls the selectCustomerById() method of the customerJPADataAccessService object
+        return customerJDBCDataAccessService.selectCustomerById(id);  // Calls the selectCustomerById() method of the
+        // customerJPADataAccessService object
     }
 
     // Endpoint to add a new customer
@@ -50,7 +51,8 @@ public class CustomerController {
     // Endpoint to delete a customer by ID
     @DeleteMapping("{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Integer customerId){
-        customerService.deleteCustomerById(customerId);  // Calls the deleteCustomerById() method of the customerService object
+        customerJDBCDataAccessService.deleteCustomerById(customerId);  // Calls the deleteCustomerById() method of the customerService
+        // object
     }
 
     // Endpoint to update a customer by ID
